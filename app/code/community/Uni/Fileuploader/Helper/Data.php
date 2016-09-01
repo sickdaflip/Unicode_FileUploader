@@ -51,67 +51,56 @@ class Uni_Fileuploader_Helper_Data extends Mage_Core_Helper_Abstract
             $mediaDir = Mage::getBaseDir('media');
             $filePath = $mediaDir . DS . $file;
             if (file_exists($filePath))
-                $fileSize = $this->__('Size: (%s)' , $this->getFileSize($filePath));
+                $fileSize = $this->__('Size: %s' , $this->getFileSize($filePath));
         }
         if ($disposition) {
             if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'png' || $ext == 'bmp') {
                 $image = $mediaUrl . $url;
-                $onclick = "return fileUploaderPopup.open({url:this.rel, title: '" . str_replace(' ', '_', $title) . "'});";
                 $url = $this->getDownloadFileUrl($url, $disposition);
-                $html = '<a class="prod-attach" title="' . $title . '" rel="' . $url . '" href="javascript:;" onclick="' . $onclick . '"><span class="attach-img"><img src="' . $image . '" id="' . $id . '_image" title="' . $title . '" alt="' . $title . '" height="' . $wh . '" width="' . $wh . '" class="small-image-preview v-middle" style="margin-right: 5px; width: ' . $wh . 'px; height: ' . $wh . 'px"/></span>' . (($showTitle) ? '<span class="attach-title">' . $title . '</span>' : '') . '</a>';
+                $html = '<a class="prod-attach" title="' . $title . '" target="_blank" href="' . $url . '"><span class="attach-img"><img src="' . $image . '" id="' . $id . '_image" title="' . $title . '" alt="' . $title . '" height="' . $wh . '" width="' . $wh . '" class="small-image-preview v-middle" style="width: ' . $wh . 'px; height: ' . $wh . 'px"/></span>' . (($showTitle) ? '<span class="attach-title">' . $title . '</span>' : '') . '</a>';
             } else if ($ext == 'txt' || $ext == 'rtf' || $ext == 'csv' || $ext == 'css' || $ext == 'htm' || $ext == 'html' || $ext == 'xml' || $ext == 'doc' || $ext == 'docx' || $ext == 'xls' || $ext == 'xlsx' || $ext == 'ppt' || $ext == 'pdf' || $ext == 'swf' || $ext == 'zip') {
                 $url = $this->getDownloadFileUrl($url, $disposition);
-                $onclick = "return fileUploaderPopup.open({url:this.rel, title: '" . str_replace(' ', '_', $title) . "'});";
-                $html = '<a class="prod-attach" title="' . $title . '" rel="' . $url . '" href="javascript:;" onclick="' . $onclick . '">' . $mediaIconImage . '</a> ';
+                $html = '<a class="prod-attach" title="' . $title . '" target="_blank" href="' . $url . '">' . $mediaIconImage . '</a> ';
             } else if ($ext == 'avi') {
                 $url = $mediaUrl . $url;
-                $onclick = "javascript:playerAviOpen('" . $title . "',this.rel); return false;";
-                $onmouseover = "window.status=''; return true;";
-                $html = '<a class="prod-attach" title="' . $title . '" onmouseover="' . $onmouseover . '" onclick="' . $onclick . '" target="_blank" rel="' . $url . '" href="javascript:;"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
+                $html = '<a class="prod-attach" title="' . $title . '" target="_blank" href="' . $url . '"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
             } else if ($ext == 'flv') {
                 $url = $mediaUrl . $url;
-                $onclick = "javascript:playerFlvOpen('" . $title . "',this.rel,'" . $playerPath . "'); return false;";
-                $onmouseover = "window.status=''; return true;";
-                $html = '<a class="prod-attach" title="' . $title . '" onmouseover="' . $onmouseover . '" onclick="' . $onclick . '" target="_blank" rel="' . $url . '" href="javascript:;"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
+                $html = '<a class="prod-attach" title="' . $title . '" target="_blank" href="' . $url . '"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
             } else if ($ext == 'mov') {
                 $url = $mediaUrl . $url;
-                $onclick = "javascript:playerMovOpen('" . $title . "',this.rel); return false;";
-                $onmouseover = "window.status=''; return true;";
-                $html = '<a class="prod-attach" title="' . $title . '" onmouseover="' . $onmouseover . '" onclick="' . $onclick . '" target="_blank" rel="' . $url . '" href="javascript:;"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
+                $html = '<a class="prod-attach" title="' . $title . '" target="_blank" href="' . $url . '"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
             } else if ($ext == 'wmv' || $ext == 'wav' || $ext == 'mp3') {
                 $url = $mediaUrl . $url;
-                $onclick = "javascript:playerOpen('" . $title . "',this.rel); return false;";
-                $onmouseover = "window.status=''; return true;";
-                $html = '<a class="prod-attach" title="' . $title . '" onmouseover="' . $onmouseover . '" onclick="' . $onclick . '" target="_blank" rel="' . $url . '" href="javascript:;"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
+                $html = '<a class="prod-attach" title="' . $title . '" target="_blank" href="' . $url . '"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
             } else {
                 $mediaIcon = Mage::getBaseUrl('media') . '/custom/upload/icons/plain.png';
                 $mediaIconImage = '<span class="attach-img"><img src="' . $mediaIcon . '" alt="View File"></span>' . (($showTitle) ? '<span class="attach-title">' . $title . '</span>' : '');
                 $url = $this->getDownloadFileUrl($url, $disposition);
-                $onclick = "return fileUploaderPopup.open({url:this.rel, title: '" . str_replace(' ', '_', $title) . "'});";
-                $html = '<a class="prod-attach" title="' . $title . '" rel="' . $url . '" href="javascript:;" onclick="' . $onclick . '">' . $mediaIconImage . '</a> ';
+                $html = '<a class="prod-attach" title="' . $title . '" target="_blank" href="' . $url . '">' . $mediaIconImage . '</a> ';
             }
         } else {
             if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'png' || $ext == 'bmp') {
                 $image = $mediaUrl . $url;
                 $url = $this->getDownloadFileUrl($url, $disposition);
-                $html = '<a class="prod-attach" target="_blank" title="' . $title . '" href="' . $url . '"><span class="attach-img"><img src="' . $image . '" id="' . $id . '_image" title="' . $title . '" alt="' . $title . '" height="' . $wh . '" width="' . $wh . '" class="small-image-preview v-middle" style="margin-right: 5px; width: ' . $wh . 'px; height: ' . $wh . 'px"/></span>' . (($showTitle) ? '<span class="attach-title">' . $title . '</span>' : '') . '</a>';
+                $html = '<a class="prod-attach" target="_blank" title="' . $title . '" target="_blank" href="' . $url . '"><span class="attach-img"><img src="' . $image . '" id="' . $id . '_image" title="' . $title . '" alt="' . $title . '" height="' . $wh . '" width="' . $wh . '" class="small-image-preview v-middle" style="width: ' . $wh . 'px; height: ' . $wh . 'px"/></span>' . (($showTitle) ? '<span class="attach-title">' . $title . '</span>' : '') . '</a>';
             } else if ($ext == 'txt' || $ext == 'rtf' || $ext == 'csv' || $ext == 'css' || $ext == 'htm' || $ext == 'html' || $ext == 'xml' || $ext == 'doc' || $ext == 'docx' || $ext == 'xls' || $ext == 'xlsx' || $ext == 'ppt' || $ext == 'pdf' || $ext == 'swf' || $ext == 'flv' || $ext == 'zip') {
                 $url = $this->getDownloadFileUrl($url, $disposition);
-                $html = '<a class="prod-attach" target="_blank" title="' . $title . '" href="' . $url . '">' . $mediaIconImage . '</a> ';
+                $html = '<a class="prod-attach" target="_blank" title="' . $title . '" target="_blank" href="' . $url . '">' . $mediaIconImage . '</a> ';
             } else if ($ext == 'avi') {
                 $url = $this->getDownloadFileUrl($url, $disposition);
-                $html = '<a class="prod-attach" target="_blank" title="' . $title . '" href="' . $url . '"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
+                $html = '<a class="prod-attach" target="_blank" title="' . $title . '" target="_blank" href="' . $url . '"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
             } else if ($ext == 'mov') {
                 $url = $this->getDownloadFileUrl($url, $disposition);
-                $html = '<a class="prod-attach" target="_blank" title="' . $title . '"href="' . $url . '"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
+                $html = '<a class="prod-attach" target="_blank" title="' . $title . '" target="_blank" href="' . $url . '"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
             } else if ($ext == 'wmv' || $ext == 'wav' || $ext == 'mp3') {
                 $url = $this->getDownloadFileUrl($url, $disposition);
-                $html = '<a class="prod-attach" target="_blank" title="' . $title . '" href="' . $url . '"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
+                $html = '<a class="prod-attach" target="_blank" title="' . $title . '" target="_blank" href="' . $url . '"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
             } else {
                 $mediaIcon = Mage::getBaseUrl('media') . '/custom/upload/icons/plain.png';
                 $mediaIconImage = '<span class="attach-img"><img src="' . $mediaIcon . '" alt="View File" style="margin-right: 5px;"/></span>' . (($showTitle) ? '<span class="attach-title">' . $title . '</span>' : '');
                 $url = $this->getDownloadFileUrl($url, $disposition);
-                $html = '<a class="prod-attach" target="_blank" title="' . $title . '" href="' . $url . '">' . $mediaIconImage . '</a> ';
+                $html = '<a class="prod-attach" target="_blank" title="' . $title . '" target="_blank" href="' . $url . '">' . $mediaIconImage . '</a> ';
             }
         }
         return $html . $fileSize;
