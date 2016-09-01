@@ -7,45 +7,51 @@
  * @copyright  Copyright (c) 2010-2011 Unicode Systems. (http://www.unicodesystems.in)
  * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-class Uni_Fileuploader_Helper_Data extends Mage_Core_Helper_Abstract {
+class Uni_Fileuploader_Helper_Data extends Mage_Core_Helper_Abstract
+{
 
-    public function getFileExtension($filename, $pos = 0) {
+    public function getFileExtension($filename, $pos = 0)
+    {
         return strtolower(substr($filename, strrpos($filename, '.') + $pos));
     }
 
-    public function updateDirSepereator($path) {
+    public function updateDirSepereator($path)
+    {
         return str_replace('\\', DS, $path);
     }
 
-    public function getDownloadFileUrl($url, $disposition) {
+    public function getDownloadFileUrl($url, $disposition)
+    {
         return Mage::getUrl('fileuploader/download/download', array('_query' => array('d' => $disposition, 'file' => $url)));
     }
 
-    protected function getFileSize($file) {
+    protected function getFileSize($file)
+    {
         $size = filesize($file);
         $sizes = array(" Bytes", " KB", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
         if ($size == 0) {
-            return('n/a');
+            return ('n/a');
         } else {
             return (round($size / pow(1024, ($i = floor(log($size, 1024)))), 2) . $sizes[$i]);
         }
     }
 
-    public function getFilesHtml($url, $title, $id = null, $showTitle = false, $disposition = 0, $size = false) {
+    public function getFilesHtml($url, $title, $id = null, $showTitle = false, $disposition = 0, $size = false)
+    {
         $html = '';
         $fileSize = '';
         $mediaUrl = Mage::getBaseUrl('media');
         $ext = $this->getFileExtension($url, 1); //"jpg","jpeg","gif","png","txt","csv","htm","html","xml","css","doc","docx","xls","rtf","ppt","pdf","swf","flv","avi","wmv","mov","wav","mp3","zip"
         $mediaIcon = Mage::getBaseUrl('media') . '/custom/upload/icons/' . $ext . '.png';
         $playerPath = Mage::getBaseUrl('media') . '/custom/upload/player/';
-        $mediaIconImage = '<span class="attach-img"><img src="' . $mediaIcon . '" alt="View File" style="margin-right: 5px;"/></span>' . (($showTitle) ? '<span class="attach-title">' . $title . '</span>' : '');
+        $mediaIconImage = '<span class="attach-img"><img src="' . $mediaIcon . '" alt="View File" /></span>' . (($showTitle) ? '<span class="attach-title">' . $title . '</span>' : '');
         $wh = ($showTitle) ? '16' : '22';
         if ($size) {
             $file = $this->updateDirSepereator($url);
             $mediaDir = Mage::getBaseDir('media');
             $filePath = $mediaDir . DS . $file;
             if (file_exists($filePath))
-                $fileSize = '&nbsp; &nbsp;Size: (' . $this->getFileSize($filePath) . ')';
+                $fileSize = $this->__('Size: (%s)' , $this->getFileSize($filePath));
         }
         if ($disposition) {
             if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'png' || $ext == 'bmp') {
@@ -79,7 +85,7 @@ class Uni_Fileuploader_Helper_Data extends Mage_Core_Helper_Abstract {
                 $html = '<a class="prod-attach" title="' . $title . '" onmouseover="' . $onmouseover . '" onclick="' . $onclick . '" target="_blank" rel="' . $url . '" href="javascript:;"><span style="font-weight:bold">' . $mediaIconImage . '</span></a>';
             } else {
                 $mediaIcon = Mage::getBaseUrl('media') . '/custom/upload/icons/plain.png';
-                $mediaIconImage = '<span class="attach-img"><img src="' . $mediaIcon . '" alt="View File" style="margin-right: 5px;"/></span>' . (($showTitle) ? '<span class="attach-title">' . $title . '</span>' : '');
+                $mediaIconImage = '<span class="attach-img"><img src="' . $mediaIcon . '" alt="View File"></span>' . (($showTitle) ? '<span class="attach-title">' . $title . '</span>' : '');
                 $url = $this->getDownloadFileUrl($url, $disposition);
                 $onclick = "return fileUploaderPopup.open({url:this.rel, title: '" . str_replace(' ', '_', $title) . "'});";
                 $html = '<a class="prod-attach" title="' . $title . '" rel="' . $url . '" href="javascript:;" onclick="' . $onclick . '">' . $mediaIconImage . '</a> ';
@@ -111,7 +117,8 @@ class Uni_Fileuploader_Helper_Data extends Mage_Core_Helper_Abstract {
         return $html . $fileSize;
     }
 
-    public function getVersionLow() {
+    public function getVersionLow()
+    {
         return (version_compare(Mage::getVersion(), '1.4.0', '>='));
     }
 }
