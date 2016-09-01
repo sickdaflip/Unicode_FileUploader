@@ -18,7 +18,9 @@
       ["app/code/community/Uni/Fileuploader/*", "app/code/community/Uni/Fileuploader/"],
       ["app/etc/modules/*", "app/etc/modules/"],
       ["js/fileuploader/*", "js/fileuploader/"],
-      ["lib/Varien/Data/Form/Element/*", "lib/Varien/Data/Form/Element/"]
+      ["lib/Varien/Data/Form/Element/*", "lib/Varien/Data/Form/Element/"],
+      ["media/custom/upload/icons/*", "media/custom/upload/icons/"],
+      ["media/custom/upload/player/*", "media/custom/upload/player/"]
     ]
   }
 }
