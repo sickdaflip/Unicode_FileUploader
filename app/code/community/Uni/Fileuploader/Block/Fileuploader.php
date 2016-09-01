@@ -1,11 +1,4 @@
 <?php
-/**
- * Unicode Systems
- * @category   Uni
- * @package    Uni_Fileuploader
- * @copyright  Copyright (c) 2010-2011 Unicode Systems. (http://www.unicodesystems.in)
- * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
- */
 class Uni_Fileuploader_Block_Fileuploader extends Mage_Core_Block_Template {
 
     public function _prepareLayout() {
@@ -23,7 +16,9 @@ class Uni_Fileuploader_Block_Fileuploader extends Mage_Core_Block_Template {
             foreach ($record as $rec) {
                 $i++;
                 $file = $_helper->getFilesHtml($rec['uploaded_file'], $rec['title'],$i,true,$rec['content_disp'],true);
-                $attach[] = array('title' => $rec['title'], 'file' => $file, 'content' => $rec['file_content']);
+                $size = $_helper->getFilesSize($rec['uploaded_file']);
+                $typ = $_helper->getFilesTyp($rec['uploaded_file']);
+                $attach[] = array('name' => $rec['title'], 'desc' => $rec['file_content'], 'typ'  => $typ, 'size'  => $size, 'link' => $file);
             }
         }
         return $attach;
