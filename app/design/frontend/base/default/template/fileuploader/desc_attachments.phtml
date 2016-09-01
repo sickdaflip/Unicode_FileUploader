@@ -1,19 +1,31 @@
 <?php
 $_product = Mage::registry('current_product');
 $attachments = $this->getProductAttachments($_product->getId());
-if (count($attachments) > 0):
-    ?>
+if (count($attachments) > 0): ?>
     <h2><?php echo $this->__('Product Attachments') ?></h2>
-    <div class="collateral-box attachment-specs">
-        <table cellspacing="0" id="product-attachment-specs-table" class="data-table">
+    <div class="box-collateral">
+        <table class="product-attachments">
+            <thead>
+            <tr>
+                <th><?php echo $this->__('Name') ?></th>
+                <th width="400"><?php echo $this->__('Description') ?></th>
+                <th><?php echo $this->__('Typ') ?></th>
+                <th><?php echo $this->__('Size') ?></th>
+                <th><?php echo $this->__('Download Link') ?></th>
+            </tr>
+            </thead>
             <tbody>
             <?php foreach ($attachments as $attachment): ?>
                 <tr>
-                    <td class="label"><?php echo $attachment['file']; ?></td>
-                    <td class="data"><?php echo $attachment['content']; ?></td>
+                    <td class="name"><?php echo $attachment['name']; ?></td>
+                    <td><?php echo $attachment['desc']; ?></td>
+                    <td><?php echo $attachment['typ']; ?></td>
+                    <td><?php echo $attachment['size']; ?></td>
+                    <td><?php echo $attachment['link']; ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
+
     </div>
 <?php endif; ?>
