@@ -232,7 +232,7 @@ class Uni_Fileuploader_Adminhtml_FileuploaderController extends Mage_Adminhtml_C
     }
     
     protected function _isAllowed() {
-        return Mage::getSingleton('admin/session')->isAllowed('admin/fileuploader');
+        return true;
     }
 
 }
